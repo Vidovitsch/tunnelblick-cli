@@ -1,0 +1,73 @@
+#!/usr/bin/env bash
+
+YELLOW="\033[1;33m"
+DEFAULT="\033[0m"
+
+main() {
+	require-tunnelblick
+
+	local operation="$1"
+
+	case $operation in
+		"connect")
+			connect "$2"
+			;;
+		"list")
+			list
+			;;
+		"state")
+			state "$2"
+			;;
+	esac
+}
+
+connect() {
+	local name="$1"
+
+	tunnelblick-do "connect \"$name\""
+}
+
+list() {
+	local names=($(tunnelblick-do "get name of configurations" | tr -d ','))
+	for name in "${names[@]}"
+	do
+		case $(state $name) in
+			"EXITING")
+				char=" "
+				;;
+			"CONNECTED")
+				char="*"
+				;;
+			*)
+				char="~"
+				;;
+		esac
+		printf "%s %s\n" "$char" "$name"
+	done
+}
+
+state() {
+	local name="$1"
+
+	tunnelblick-do "get state of first configuration where name = \"$name\""
+}
+
+tunnelblick-do() {
+	local command="$1"
+
+	osascript -e "tell application \"Tunnelblick\"" -e "$command" -e "end tell"
+}
+
+require-tunnelblick() {
+	if [[ -z $(mdfind "kMDItemKind == \"Application\"" | grep "Tunnelblic.app") ]]; then
+		echo ""
+		echo "Whoops!"
+		echo ""
+		echo "Tunnelblick doesn't seem to be installed on your machine."
+		echo -e "You need to install it first. (${YELLOW}brew cask install tunnelblick${DEFAULT})"
+
+		exit 1
+	fi
+}
+
+main "$@"
