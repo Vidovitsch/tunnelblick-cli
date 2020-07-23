@@ -10,7 +10,11 @@ DISCONNECTED="EXITING"
 main() {
 	require-tunnelblick
 
-	"$1"
+	"$1" "$2"
+}
+
+connect() {
+
 }
 
 list() {
@@ -21,9 +25,9 @@ list() {
 	do
 		vpn_name=${vpn_names[$i]}
 		case "${vpn_states[$i]}" in
-			"$CONNECTED") 	 printf "* %s\n", "$vpn_name" ;;
-			"$DISCONNECTED") printf "  %s\n", "$vpn_name" ;;
-			*) 							 printf "~ %s\n", "$vpn_name" ;;
+			"$CONNECTED") 	 printf "%s %s\n" "*" "$vpn_name" ;;
+			"$DISCONNECTED") printf "%s %s\n" " " "$vpn_name" ;;
+			*) 							 printf "%s %s\n" "~" "$vpn_name" ;;
 		esac
 	done
 }
