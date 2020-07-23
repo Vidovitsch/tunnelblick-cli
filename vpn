@@ -9,11 +9,7 @@ main() {
 
 	local operation="$1"
 
-	case "$operation" in
-		"list")
-			list
-			;;
-	esac
+	$operation
 }
 
 list() {
@@ -46,7 +42,6 @@ tunnelblick-do() {
 
 	osascript -e "tell application \"Tunnelblick\"" -e "$command" -e "end tell"
 }
-
 
 require-tunnelblick() {
 	if [[ -z $(mdfind "kMDItemKind == \"Application\"" | grep "Tunnelblik.app") ]]; then
