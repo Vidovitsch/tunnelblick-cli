@@ -47,12 +47,14 @@ tunnelblick-do() {
 	osascript -e "tell application \"Tunnelblick\"" -e "$command" -e "end tell"
 }
 
+
 require-tunnelblick() {
 	if [[ -z $(mdfind "kMDItemKind == \"Application\"" | grep "Tunnelblik.app") ]]; then
 		echo
 		echo "Whoops! Tunnelblick doesn't seem to be installed on your machine."
     echo "You can install Tunnelblick by using homebrew (cask):"
-    echo "        ${GREEN}brew cask install tunnelblick${DEFAULT}         "
+    echo
+    echo -e "	${YELLOW}brew cask install tunnelblick${DEFAULT}"
 
 		exit 1
 	fi
