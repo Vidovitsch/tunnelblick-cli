@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+GREEN="\033[1;32mm"
 YELLOW="\033[1;33m"
 DEFAULT="\033[0m"
 
@@ -8,23 +9,11 @@ main() {
 
 	local operation="$1"
 
-	case $operation in
-		"connect")
-			connect "$2"
-			;;
+	case "$operation" in
 		"list")
 			list
 			;;
-		"state")
-			state "$2"
-			;;
 	esac
-}
-
-connect() {
-	local name="$1"
-
-	tunnelblick-do "connect \"$name\""
 }
 
 list() {
@@ -59,12 +48,12 @@ tunnelblick-do() {
 }
 
 require-tunnelblick() {
-	if [[ -z $(mdfind "kMDItemKind == \"Application\"" | grep "Tunnelblic.app") ]]; then
+	if [[ -z $(mdfind "kMDItemKind == \"Application\"" | grep "Tunnelblick.app") ]]; then
 		echo ""
 		echo "Whoops!"
 		echo ""
 		echo "Tunnelblick doesn't seem to be installed on your machine."
-		echo -e "You need to install it first. (${YELLOW}brew cask install tunnelblick${DEFAULT})"
+		echo -e "You need to install it first. (${GREEN}brew cask install tunnelblick${DEFAULT})"
 
 		exit 1
 	fi
