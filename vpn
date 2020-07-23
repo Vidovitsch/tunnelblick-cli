@@ -21,9 +21,9 @@ list() {
 	do
 		vpn_name=${vpn_names[$i]}
 		case "${vpn_states[$i]}" in
-			"$CONNECTED") 	 echo "* $vpn_name" ;;
-			"$DISCONNECTED") echo "  $vpn_name" ;;
-			*) 							 echo "~ $vpn_name" ;;
+			"$CONNECTED") 	 printf "* %s\n", "$vpn_name" ;;
+			"$DISCONNECTED") printf "  %s\n", "$vpn_name" ;;
+			*) 							 printf "~ %s\n", "$vpn_name" ;;
 		esac
 	done
 }
