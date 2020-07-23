@@ -48,12 +48,11 @@ tunnelblick-do() {
 }
 
 require-tunnelblick() {
-	if [[ -z $(mdfind "kMDItemKind == \"Application\"" | grep "Tunnelblick.app") ]]; then
-		echo ""
-		echo "Whoops!"
-		echo ""
-		echo "Tunnelblick doesn't seem to be installed on your machine."
-		echo -e "You need to install it first. (${GREEN}brew cask install tunnelblick${DEFAULT})"
+	if [[ -z $(mdfind "kMDItemKind == \"Application\"" | grep "Tunnelblik.app") ]]; then
+		echo
+		echo "Whoops! Tunnelblick doesn't seem to be installed on your machine."
+    echo "You can install Tunnelblick by using homebrew (cask):"
+    echo "        ${GREEN}brew cask install tunnelblick${DEFAULT}         "
 
 		exit 1
 	fi
