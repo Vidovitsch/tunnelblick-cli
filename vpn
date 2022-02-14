@@ -13,10 +13,6 @@ main() {
 	"$1" "$2"
 }
 
-connect() {
-
-}
-
 list() {
 	local vpn_names=($(tunnelblick-do "get name of configurations" | tr -d ','))
 	local vpn_states=($(tunnelblick-do "get state of configurations" | tr -d ','))
